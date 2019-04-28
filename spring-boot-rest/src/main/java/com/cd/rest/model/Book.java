@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Book {
+    private int id;
     private Author author;
     private String name;
     private int publishYear;
