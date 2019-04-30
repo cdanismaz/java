@@ -1,13 +1,11 @@
 package com.cd.rest.controller;
 
-import com.cd.rest.entitymodel.AuthorEntity;
 import com.cd.rest.entitymodel.BookEntity;
 import com.cd.rest.mapper.BookMapper;
-import com.cd.rest.model.Author;
 import com.cd.rest.model.Book;
 import com.cd.rest.repository.AuthorRepository;
 import com.cd.rest.repository.BookRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.cd.rest.repository.TypesRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,14 +21,16 @@ public class BookController {
 //    @Autowired
     private BookRepository bookRepository;
     private AuthorRepository authorRepository;
+    private TypesRepository typesRepository;
 //
 //    @Autowired
 //    private AuthorRepository authorRepository;
 
 
-    public BookController(BookRepository bookrepo, AuthorRepository authorrepo) {
+    public BookController(BookRepository bookrepo, AuthorRepository authorrepo, TypesRepository typerepo) {
         this.bookRepository = bookrepo;
         this.authorRepository = authorrepo;
+        this.typesRepository = typerepo;
     }
 
     @GetMapping
@@ -73,6 +73,7 @@ public class BookController {
         final BookEntity bookEntity = BookMapper.toBookEntity(book);
         this.authorRepository.save(bookEntity.getAuthor());
         this.bookRepository.save(bookEntity);
+        this.typesRepository.save(bookEntity.getType());
         return ResponseEntity.ok(true);
     }
 

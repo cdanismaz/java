@@ -1,12 +1,11 @@
 package com.cd.rest.entitymodel;
 
-import lombok.Getter;
-import lombok.Setter;
+
+import lombok.Data;
 
 import javax.persistence.*;
 
-@Setter
-@Getter
+@Data
 @Table(name = "authors")
 @Entity
 public class AuthorEntity {
@@ -22,5 +21,7 @@ public class AuthorEntity {
 
     private int birthyear;
 
-
+    @OneToMany
+    @JoinColumn(name = "author_type")
+    private TypeEntity type;
 }

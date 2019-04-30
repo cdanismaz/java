@@ -14,4 +14,5 @@ public class Author {
     private String name;
     private String surname;
     private int birthyear;
+    private Types authortype;
 }

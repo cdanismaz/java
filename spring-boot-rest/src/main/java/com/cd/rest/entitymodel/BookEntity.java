@@ -1,13 +1,12 @@
 package com.cd.rest.entitymodel;
 
-import lombok.Getter;
-import lombok.Setter;
+
+import lombok.Data;
 
 import javax.persistence.*;
 
 @Table(name="books")
-@Setter
-@Getter
+@Data
 @Entity
 public class BookEntity {
 
@@ -21,4 +20,8 @@ public class BookEntity {
     @ManyToOne
     @JoinColumn(name="author_id")
     private AuthorEntity author;
+
+    @OneToMany
+    @JoinColumn(name = "book_type")
+    private TypeEntity type;
 }

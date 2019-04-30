@@ -5,14 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-public class Book {
+public class Types {
     private int id;
-    private Author author;
     private String name;
-    private int publishYear;
-    private Types booktype;
 }
