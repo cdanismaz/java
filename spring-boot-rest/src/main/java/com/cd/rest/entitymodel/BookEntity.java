@@ -4,8 +4,9 @@ package com.cd.rest.entitymodel;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
-@Table(name="books")
+@Table(name = "books")
 @Data
 @Entity
 public class BookEntity {
@@ -18,10 +19,12 @@ public class BookEntity {
     private int publishYear;
 
     @ManyToOne
-    @JoinColumn(name="author_id")
+    @JoinColumn(name = "author_id")
     private AuthorEntity author;
 
-    @OneToMany
-    @JoinColumn(name = "book_type")
-    private TypeEntity type;
+    @ManyToMany
+    @JoinTable(name = "book_booktypes",
+            joinColumns = {@JoinColumn(name = "book_id",referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "type_id", referencedColumnName = "id")})
+    private List<BookTypeEntity> types;
 }

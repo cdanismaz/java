@@ -20,8 +20,4 @@ public class AuthorEntity {
     private String surname;
 
     private int birthyear;
-
-    @OneToMany
-    @JoinColumn(name = "author_type")
-    private TypeEntity type;
 }

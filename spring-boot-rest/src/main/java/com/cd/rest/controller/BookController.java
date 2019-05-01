@@ -5,7 +5,7 @@ import com.cd.rest.mapper.BookMapper;
 import com.cd.rest.model.Book;
 import com.cd.rest.repository.AuthorRepository;
 import com.cd.rest.repository.BookRepository;
-import com.cd.rest.repository.TypesRepository;
+import com.cd.rest.repository.BookTypeRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,16 +21,16 @@ public class BookController {
 //    @Autowired
     private BookRepository bookRepository;
     private AuthorRepository authorRepository;
-    private TypesRepository typesRepository;
+    private BookTypeRepository bookTypeRepository;
 //
 //    @Autowired
 //    private AuthorRepository authorRepository;
 
 
-    public BookController(BookRepository bookrepo, AuthorRepository authorrepo, TypesRepository typerepo) {
+    public BookController(BookRepository bookrepo, AuthorRepository authorrepo, BookTypeRepository typerepo) {
         this.bookRepository = bookrepo;
         this.authorRepository = authorrepo;
-        this.typesRepository = typerepo;
+        this.bookTypeRepository = typerepo;
     }
 
     @GetMapping
@@ -66,14 +66,12 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity saveBookAPI(@RequestBody Book book, HttpServletRequest request) {
+    public ResponseEntity save(@RequestBody Book book, HttpServletRequest request) {
 //        final String header1 = request.getHeader("cansu");
 //        if(header1 == null)
 //            return ResponseEntity.badRequest().body(false);
         final BookEntity bookEntity = BookMapper.toBookEntity(book);
-        this.authorRepository.save(bookEntity.getAuthor());
         this.bookRepository.save(bookEntity);
-        this.typesRepository.save(bookEntity.getType());
         return ResponseEntity.ok(true);
     }
 

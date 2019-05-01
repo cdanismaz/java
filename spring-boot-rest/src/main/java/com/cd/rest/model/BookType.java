@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Types {
+public class BookType {
     private int id;
     private String name;
 }

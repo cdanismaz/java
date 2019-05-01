@@ -4,10 +4,10 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-@Table(name = "types")
+@Table(name = "book_types")
 @Data
 @Entity
-public class TypeEntity {
+public class BookTypeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -14,5 +16,5 @@ public class Book {
     private Author author;
     private String name;
     private int publishYear;
-    private Types booktype;
+    private List<BookType> types;
 }
