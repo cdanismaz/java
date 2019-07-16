@@ -1,8 +1,6 @@
 package com.cdanismaz.dload.master;
 
 import java.util.Scanner;
-import java.io.*;
-import java.net.*;
 
 public class MasterCommandListener implements Runnable{
     private TcpConnectionManager tcpConnectionManager;
@@ -23,7 +21,7 @@ public class MasterCommandListener implements Runnable{
             }
 
             else if(command.toLowerCase().equals("start")) {
-                this.startLoadTest();
+                this.startLoadTest(command);
             }
 
             else
@@ -31,8 +29,9 @@ public class MasterCommandListener implements Runnable{
         }
     }
 
-    private void startLoadTest() {
+    private void startLoadTest(String command) {
         System.out.println("Commencing load test");
+        this.tcpConnectionManager.sendCommand(command);
     }
 
     private void terminateApplication() {

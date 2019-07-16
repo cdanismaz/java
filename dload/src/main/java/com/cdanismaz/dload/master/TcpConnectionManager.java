@@ -1,6 +1,8 @@
 package com.cdanismaz.dload.master;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.net.*;
 import java.util.ArrayList;
 
@@ -43,7 +45,7 @@ public class TcpConnectionManager implements Runnable {
         }
     }
 
-    public void terminate() {
+    public void terminate() { 
         this.shouldWork = false;
 
         // We should close the socket here, otherwise even if we set the shouldWork to false,
@@ -54,6 +56,28 @@ public class TcpConnectionManager implements Runnable {
         } catch (IOException e) {
             System.out.println("Cannot close server socket...");
             e.printStackTrace();
+        }
+    }
+
+    public void sendCommand(String command) {
+        for(int i = 0; i < this.socketList.size(); i++) {
+            BufferedWriter wr = null;
+            try {
+                wr = new BufferedWriter(new OutputStreamWriter(this.socketList.get(i).getOutputStream()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                wr.write(command);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                wr.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 

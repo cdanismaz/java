@@ -1,10 +1,12 @@
 package com.cdanismaz.dload.slave;
 
-import java.io.PrintWriter;
+import com.cdanismaz.dload.master.TcpConnectionManager;
 import java.util.Scanner;
 
 public class SlaveCommandListener implements Runnable {
     private boolean shouldWork = true;
+    private TcpConnectionManager tcpConnectionManager;
+
 
     public void run() {
         while (shouldWork) {
@@ -14,8 +16,7 @@ public class SlaveCommandListener implements Runnable {
             if (command.toLowerCase().equals("exit")) {
                 this.shouldWork = false;
                 terminateSlave();
-            }
-            else
+            } else
                 System.out.println("Unknown command");
         }
     }
