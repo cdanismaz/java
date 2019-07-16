@@ -14,6 +14,5 @@ public class SlaveApp {
         Thread slaveCommandListenerThread = new Thread(new SlaveCommandListener());
         slaveCommandListenerThread.start();
 
-
     }
 }

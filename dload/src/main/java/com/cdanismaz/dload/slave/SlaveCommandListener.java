@@ -6,7 +6,7 @@ public class SlaveCommandListener implements Runnable {
     private boolean shouldWork = true;
 
     public void run() {
-        while(shouldWork) {
+        while (shouldWork) {
             Scanner sc = new Scanner(System.in);
             String command = sc.next();
 
@@ -14,7 +14,6 @@ public class SlaveCommandListener implements Runnable {
                 this.shouldWork = false;
                 terminateSlave();
             }
-
             else
                 System.out.println("Unknown command");
         }
@@ -22,7 +21,6 @@ public class SlaveCommandListener implements Runnable {
 
     private void terminateSlave() {
         System.out.println("Terminating slave");
-        //tcpConnectionManager.terminate();
     }
 
 }
