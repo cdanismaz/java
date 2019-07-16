@@ -29,6 +29,6 @@ public class MasterCommandListener implements Runnable{
 
     private void terminateApplication() {
         System.out.println("Terminating application");
-        tcpConnectionManager.terminate();
+        this.tcpConnectionManager.terminate();
     }
 }

@@ -22,7 +22,7 @@ public class TcpConnectionManager implements Runnable {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("New connection: " + clientSocket.getRemoteSocketAddress() + ":" + clientSocket.getPort());
                 socketList.add(clientSocket);
-                System.out.println("Current clientsocket count: " + socketList.size());
+                System.out.println("Current client socket count: " + socketList.size());
             } catch (IOException e) {
                 //e.printStackTrace();
             }
@@ -36,7 +36,6 @@ public class TcpConnectionManager implements Runnable {
         System.out.println("Closing all tcp connections");
         for(int i = 0; i< socketList.size(); i++) {
             try {
-                this.serverSocket.close();
                 this.socketList.get(i).close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -46,6 +45,16 @@ public class TcpConnectionManager implements Runnable {
 
     public void terminate() {
         this.shouldWork = false;
+
+        // We should close the socket here, otherwise even if we set the shouldWork to false,
+        // this thread will continue to wait for new connections. Remember that the accept method
+        // waits until there is a new connection or the server socket is closed
+        try {
+            this.serverSocket.close();
+        } catch (IOException e) {
+            System.out.println("Cannot close server socket...");
+            e.printStackTrace();
+        }
     }
 
 
