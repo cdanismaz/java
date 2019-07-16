@@ -1,8 +1,8 @@
+package com.cdanismaz.dload.master;
+
 import java.io.*;
 
 public class MasterApp {
-
-    public static PrintWriter pr = null;
 
     public static void main(String[] args) throws IOException {
 

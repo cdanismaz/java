@@ -1,3 +1,7 @@
+package com.cdanismaz.dload.master;
+
+import com.cdanismaz.dload.master.TcpConnectionManager;
+
 import java.util.Scanner;
 
 public class MasterCommandListener implements Runnable{

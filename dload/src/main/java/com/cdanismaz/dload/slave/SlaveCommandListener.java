@@ -1,3 +1,5 @@
+package com.cdanismaz.dload.slave;
+
 import java.util.Scanner;
 
 public class SlaveCommandListener implements Runnable {
