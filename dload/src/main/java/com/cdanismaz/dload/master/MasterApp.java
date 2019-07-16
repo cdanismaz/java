@@ -6,11 +6,11 @@ public class MasterApp {
 
     public static void main(String[] args) throws IOException {
 
-        final TcpConnectionManager tcpConnectionManager = new TcpConnectionManager();
-        Thread connectionManagerThread = new Thread(tcpConnectionManager);
+        final MasterTcpManager masterTcpManager = new MasterTcpManager();
+        Thread connectionManagerThread = new Thread(masterTcpManager);
         connectionManagerThread.start();
 
-        Thread commandListenerThread = new Thread(new MasterCommandListener(tcpConnectionManager));
+        Thread commandListenerThread = new Thread(new MasterInputListener(masterTcpManager));
         commandListenerThread.start();
     }
 

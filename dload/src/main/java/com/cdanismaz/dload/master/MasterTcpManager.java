@@ -6,13 +6,13 @@ import java.io.OutputStreamWriter;
 import java.net.*;
 import java.util.ArrayList;
 
-public class TcpConnectionManager implements Runnable {
+public class MasterTcpManager implements Runnable {
 
     private ServerSocket serverSocket;
     public ArrayList<Socket> socketList = new ArrayList<Socket>();
     private boolean shouldWork = true;
 
-    public TcpConnectionManager() throws IOException {
+    public MasterTcpManager() throws IOException {
         this.serverSocket = new ServerSocket(6789);
     }
 
@@ -52,6 +52,7 @@ public class TcpConnectionManager implements Runnable {
         // this thread will continue to wait for new connections. Remember that the accept method
         // waits until there is a new connection or the server socket is closed
         try {
+            this.sendCommand("exit\n");
             this.serverSocket.close();
         } catch (IOException e) {
             System.out.println("Cannot close server socket...");
@@ -60,24 +61,19 @@ public class TcpConnectionManager implements Runnable {
     }
 
     public void sendCommand(String command) {
-        for (int i = 0; i < this.socketList.size(); i++) {
-            BufferedWriter wr = null;
+        for (int i = this.socketList.size()-1; i >= 0; i--) {
+            BufferedWriter socketWriter;
+            final Socket socket = this.socketList.get(i);
             try {
-                wr = new BufferedWriter(new OutputStreamWriter(this.socketList.get(i).getOutputStream()));
+                socket.getOutputStream().write(command.getBytes());
+//                socketWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+//                socketWriter.write(command + "\n");
+                //socketWriter.newLine();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Cannot send message to slave. Removing socket from list");
+                socketList.remove(socket);
+                System.out.println("New socket count: " + socketList.size());
             }
-            try {
-                wr.write(command);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                wr.flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
         }
     }
 

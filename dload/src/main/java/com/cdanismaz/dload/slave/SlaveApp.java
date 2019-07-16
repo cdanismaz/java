@@ -1,41 +1,28 @@
 package com.cdanismaz.dload.slave;
 
-import com.cdanismaz.dload.master.TcpConnectionManager;
+import com.cdanismaz.dload.common.ThreadManager;
+import com.cdanismaz.dload.master.MasterTcpManager;
 
 import java.io.*;
 import java.net.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SlaveApp {
-/**
-    Socket socket;
-    String server = "localhost";
-    int port = 6789; **/
-    private TcpConnectionManager tcpConnectionManager;
 
     public static void main(String[] args) throws IOException {
-        //new SlaveApp();
-        Socket socket = new Socket("localhost", 6789);
+        ThreadManager threadManager = new ThreadManager();
 
-        Thread slaveCommandListenerThread = new Thread(new SlaveCommandListener());
+        SlaveInputListener slaveInputListener = new SlaveInputListener(threadManager);
+        SlaveTcpListener slaveTcpListener = new SlaveTcpListener(threadManager);
+
+        threadManager.addThread(slaveInputListener);
+        threadManager.addThread(slaveTcpListener);
+
+        Thread slaveCommandListenerThread = new Thread(slaveInputListener);
         slaveCommandListenerThread.start();
 
-
-    }
-/**
-    public SlaveApp() {
-        openSocket();
+        Thread slaveTcpListenerThread = new Thread(slaveTcpListener);
+        slaveTcpListenerThread.start();
     }
 
-    private void openSocket() {
-        try {
-            InetAddress addr = InetAddress.getByName(server);
-            SocketAddress socketAddr = new InetSocketAddress(addr, port);
-            socket = new Socket();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }**/
 
 }

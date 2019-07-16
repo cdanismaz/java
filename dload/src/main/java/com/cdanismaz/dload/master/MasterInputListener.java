@@ -2,18 +2,19 @@ package com.cdanismaz.dload.master;
 
 import java.util.Scanner;
 
-public class MasterCommandListener implements Runnable{
-    private TcpConnectionManager tcpConnectionManager;
+public class MasterInputListener implements Runnable{
+    private MasterTcpManager masterTcpManager;
+    private Scanner scanner;
     private boolean shouldWork = true;
 
-    public MasterCommandListener(TcpConnectionManager tcpConnectionManager) {
-        this.tcpConnectionManager = tcpConnectionManager;
+    public MasterInputListener(MasterTcpManager masterTcpManager) {
+        this.masterTcpManager = masterTcpManager;
     }
 
     public void run() {
         while(shouldWork) {
-            Scanner sc = new Scanner(System.in);
-            String command = sc.next();
+            this.scanner = new Scanner(System.in);
+            String command = scanner.next();
 
             if (command.toLowerCase().equals("exit")) {
                 this.shouldWork = false;
@@ -21,7 +22,7 @@ public class MasterCommandListener implements Runnable{
             }
 
             else if(command.toLowerCase().equals("start")) {
-                this.startLoadTest(command);
+                this.startLoadTest();
             }
 
             else
@@ -29,13 +30,14 @@ public class MasterCommandListener implements Runnable{
         }
     }
 
-    private void startLoadTest(String command) {
+    private void startLoadTest() {
         System.out.println("Commencing load test");
-        this.tcpConnectionManager.sendCommand(command);
+        this.masterTcpManager.sendCommand("start\n");
     }
 
     private void terminateApplication() {
         System.out.println("Terminating application");
-        this.tcpConnectionManager.terminate();
+        this.scanner.close();
+        this.masterTcpManager.terminate();
     }
 }
