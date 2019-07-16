@@ -11,6 +11,9 @@ public class SlaveApp {
 
         Socket socket = new Socket("localhost", 6789);
 
+        Thread slaveCommandListenerThread = new Thread(new SlaveCommandListener());
+        slaveCommandListenerThread.start();
+
 
     }
 }
