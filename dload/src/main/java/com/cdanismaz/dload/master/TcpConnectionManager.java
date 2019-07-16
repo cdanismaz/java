@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class TcpConnectionManager implements Runnable {
 
     private ServerSocket serverSocket;
-    private ArrayList<Socket> socketList = new ArrayList<Socket>();
+    public ArrayList<Socket> socketList = new ArrayList<Socket>();
     private boolean shouldWork = true;
 
     public TcpConnectionManager() throws IOException {
