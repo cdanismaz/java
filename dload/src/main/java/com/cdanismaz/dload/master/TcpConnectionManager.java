@@ -36,7 +36,7 @@ public class TcpConnectionManager implements Runnable {
 
     private void closeAllConnections() {
         System.out.println("Closing all tcp connections");
-        for(int i = 0; i< socketList.size(); i++) {
+        for (int i = 0; i < socketList.size(); i++) {
             try {
                 this.socketList.get(i).close();
             } catch (IOException e) {
@@ -45,7 +45,7 @@ public class TcpConnectionManager implements Runnable {
         }
     }
 
-    public void terminate() { 
+    public void terminate() {
         this.shouldWork = false;
 
         // We should close the socket here, otherwise even if we set the shouldWork to false,
@@ -60,7 +60,7 @@ public class TcpConnectionManager implements Runnable {
     }
 
     public void sendCommand(String command) {
-        for(int i = 0; i < this.socketList.size(); i++) {
+        for (int i = 0; i < this.socketList.size(); i++) {
             BufferedWriter wr = null;
             try {
                 wr = new BufferedWriter(new OutputStreamWriter(this.socketList.get(i).getOutputStream()));
