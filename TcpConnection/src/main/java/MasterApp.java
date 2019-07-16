@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.*;
 
 public class MasterApp {
 
@@ -11,7 +10,7 @@ public class MasterApp {
         Thread connectionManagerThread = new Thread(tcpConnectionManager);
         connectionManagerThread.start();
 
-        Thread commandListenerThread = new Thread(new CommandListener(tcpConnectionManager));
+        Thread commandListenerThread = new Thread(new MasterCommandListener(tcpConnectionManager));
         commandListenerThread.start();
     }
 

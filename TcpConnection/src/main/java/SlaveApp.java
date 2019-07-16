@@ -8,5 +8,7 @@ public class SlaveApp {
     public static void main(String[] args) throws IOException {
 
         Socket socket = new Socket("localhost", 6789);
+
+
     }
 }

@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
-public class CommandListener implements Runnable{
+public class MasterCommandListener implements Runnable{
     private TcpConnectionManager tcpConnectionManager;
     private boolean shouldWork = true;
 
-    public CommandListener(TcpConnectionManager tcpConnectionManager) {
+    public MasterCommandListener(TcpConnectionManager tcpConnectionManager) {
         this.tcpConnectionManager = tcpConnectionManager;
     }
 
