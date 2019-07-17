@@ -24,10 +24,14 @@ public class SlaveInputListener implements Runnable, ClosableThread{
         while (shouldWork) {
             try {
                 String command = inputReader.readLine();
-                if (command.toLowerCase().equals("exit")) {
-                    this.threadManager.terminate();
-                } else
-                    System.out.println("Unknown command");
+
+                // The command may be null because the System.in may have been closed
+                if (command != null) {
+					if (command.toLowerCase().equals("exit")) {
+						this.threadManager.terminate();
+					} else
+						System.out.println("Unknown command");
+				}
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -39,6 +43,7 @@ public class SlaveInputListener implements Runnable, ClosableThread{
         System.out.println("Terminating slave");
         this.shouldWork = false;
         try {
+            System.in.close();
             this.inputReader.close();
             this.inputStreamReader.close();
         } catch (IOException e) {

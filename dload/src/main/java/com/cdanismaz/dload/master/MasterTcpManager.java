@@ -62,13 +62,21 @@ public class MasterTcpManager implements Runnable {
 
     public void sendCommand(String command) {
         for (int i = this.socketList.size()-1; i >= 0; i--) {
-            BufferedWriter socketWriter;
             final Socket socket = this.socketList.get(i);
             try {
-                socket.getOutputStream().write(command.getBytes());
+            	// Check if the socket is closed, or its output stream is closed
+                if (socket.isClosed() || socket.isOutputShutdown()) {
+					System.out.println("Socket is closed. Removing socket from list");
+					this.socketList.remove(socket);
+					System.out.println("New socket count: " + socketList.size());
+				} else {
+					socket.getOutputStream().write(command.getBytes());
+				}
+				
+//				BufferedWriter socketWriter;
 //                socketWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 //                socketWriter.write(command + "\n");
-                //socketWriter.newLine();
+//                socketWriter.newLine();
             } catch (IOException e) {
                 System.out.println("Cannot send message to slave. Removing socket from list");
                 socketList.remove(socket);
