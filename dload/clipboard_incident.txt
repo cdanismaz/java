@@ -1,0 +1,32 @@
+{
+   "incidentType":"CLIPBOARD",
+   "content":"havelsan2019",
+   "applicationName":"CLIPBOARD",
+   "destinationType":"CLIPBOARD",
+   "policyAnalyzeResultList":[
+      {
+         "policyId":2,
+         "action":{
+            "id":2
+         },
+         "assetAnalyzeList":[
+            {
+               "assetId":2,
+               "offsetLenSeq":"0:12"
+            }
+         ],
+         "fingerprintAssetSimilarityList":[],
+         "fingerprintAssetPieceList":[]
+      }
+   ],
+   "combinedGroupVersion":"2|4",
+   "action":{
+      "id":2
+   },
+   "contentType":"text/plain",
+   "incidentPermitted":false,
+   "logDate":[current-date],
+   "token":"60d49eb25a869d3cd516a40133a2319c70a11086521f8a912c4aa6990a7cd1f670754ee33b06e42e6a99a7e04bbe80a1d0c91b0a214bf285170cb128b8dbc205",
+   "ipAddress":"10.150.97.72",
+   "hostname":"CEM-DELL"
+}

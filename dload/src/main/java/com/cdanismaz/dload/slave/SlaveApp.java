@@ -13,6 +13,8 @@ public class SlaveApp {
         threadManager.addThread(slaveInputListener);
         threadManager.addThread(slaveTcpListener);
 
+        Runtime.getRuntime().addShutdownHook(new Thread(threadManager::terminate));
+
         Thread slaveCommandListenerThread = new Thread(slaveInputListener);
         slaveCommandListenerThread.start();
 

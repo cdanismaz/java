@@ -14,25 +14,21 @@ public class MasterInputListener implements Runnable{
     public void run() {
         while(shouldWork) {
             this.scanner = new Scanner(System.in);
-            String command = scanner.next();
+            String command = scanner.nextLine();
 
             if (command.toLowerCase().equals("exit")) {
                 this.shouldWork = false;
                 terminateApplication();
             }
-
-            else if(command.toLowerCase().equals("start")) {
-                this.startLoadTest();
+            else {
+                startLoadTest(command);
             }
-
-            else
-                System.out.println("Unknown command");
         }
     }
 
-    private void startLoadTest() {
+    private void startLoadTest(String command) {
         System.out.println("Commencing load test");
-        this.masterTcpManager.sendCommand("start\n");
+        this.masterTcpManager.sendCommand(command + "\n");
     }
 
     private void terminateApplication() {

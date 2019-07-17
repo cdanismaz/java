@@ -8,8 +8,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.Arrays;
+import java.util.List;
 
-public class SlaveTcpListener implements Runnable,ClosableThread {
+public class SlaveTcpListener implements Runnable, ClosableThread {
     private boolean shouldWork = true;
     private Socket socket = null;
     private ThreadManager threadManager;
@@ -33,18 +35,22 @@ public class SlaveTcpListener implements Runnable,ClosableThread {
             System.out.println("Waiting for new command from master");
             try {
                 final String commandFromMaster = this.bufferedReader.readLine();
-                if (commandFromMaster.toLowerCase().equals("start")) {
-                    System.out.println("Starting load test");
-                }
-                else if (commandFromMaster.toLowerCase().equals("exit")) {
+
+                if (commandFromMaster.toLowerCase().equals("exit")) {
+                    System.out.println("Exiting");
                     this.threadManager.terminate();
                 }
-                else
-                    System.out.println("Unknown command from master: " + commandFromMaster);
+                else {
+                    System.out.println("Starting load test");
+                    runCommand(commandFromMaster);
+                }
+
             } catch (SocketException e) {
                 System.out.println("Socket closed");
+                break;
             } catch (IOException e) {
                 e.printStackTrace();
+                break;
             }
         }
     }
@@ -56,6 +62,34 @@ public class SlaveTcpListener implements Runnable,ClosableThread {
 			this.socket.close();
             this.bufferedReader.close();
             this.inputStreamReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void runCommand(String command) {
+        List<String> commandList = Arrays.asList(command.split(" "));
+
+        ProcessBuilder builder = new ProcessBuilder();
+        builder.command(commandList);
+        builder.redirectErrorStream(true);
+        Process process = null;
+        try {
+            process = builder.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //Process p = Runtime.getRuntime().exec("cd /Users/cdanismaz/Documents/workspace/dlp-generator");
+
+        BufferedReader r = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        String line;
+        try {
+            while (true) {
+                line = r.readLine();
+                if (line == null) { break; }
+                System.out.println(line);
+            }
+            r.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

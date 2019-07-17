@@ -34,6 +34,7 @@ public class SlaveInputListener implements Runnable, ClosableThread{
 				}
             } catch (IOException e) {
                 e.printStackTrace();
+                break;
             }
         }
     }

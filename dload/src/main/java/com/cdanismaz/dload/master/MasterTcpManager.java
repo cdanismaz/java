@@ -80,6 +80,15 @@ public class MasterTcpManager implements Runnable {
             } catch (IOException e) {
                 System.out.println("Cannot send message to slave. Removing socket from list");
                 socketList.remove(socket);
+                try {
+                    if (socket.isClosed()) {
+                        System.out.println("Socket is already closed");
+                    } else {
+                        socket.close();
+                    }
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
                 System.out.println("New socket count: " + socketList.size());
             }
         }
