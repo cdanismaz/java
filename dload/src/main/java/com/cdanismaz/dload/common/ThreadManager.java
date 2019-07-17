@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ThreadManager {
-    List<ClosableThread> threads = new ArrayList<>();
+    List<ClosableThread> threads = new ArrayList();
 
     public void addThread(ClosableThread thread) {
         threads.add(thread);
