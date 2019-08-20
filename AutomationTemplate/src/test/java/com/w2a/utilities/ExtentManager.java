@@ -10,7 +10,7 @@ public class ExtentManager {
 
     public static ExtentReports getInstance() {
         if (extent == null) {
-            extent = new ExtentReports(System.getProperty("user.dir")+"/target/surefire-reports/extent.html", true, DisplayOrder.OLDEST_FIRST);
+            extent = new ExtentReports(System.getProperty("user.dir")+"/target/surefire-reports/html/extent.html", true, DisplayOrder.OLDEST_FIRST);
             extent.loadConfig(new File(System.getProperty("user.dir")+"/src/main/resources/extentconfig/ReportConfig.xml"));
         }
         return extent;
